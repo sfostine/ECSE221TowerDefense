@@ -1,12 +1,12 @@
 package domain;
 
 public class SceneryCell extends Cell {
-	Tower theTower;
+	private Tower theTower;
 	public SceneryCell(int positionX, int positionY){
 		this.crittersAllowed=false;
 		this.towersAllowed=true;
-		this.posx=positionX;
-		this.posy=positionY;
+		this.setPosx(positionX);
+		this.setPosy(positionY);
 	}
 	public void setTower(Tower setT){
 		this.theTower=setT;

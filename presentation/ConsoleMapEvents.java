@@ -1,27 +1,30 @@
 package presentation;
+
 import domain.Map;
+
 public class ConsoleMapEvents implements IObserver {
-	private Map observedMap; 
-	
-	public ConsoleMapEvents(Map theMap){
+	private Map observedMap;
+
+	public ConsoleMapEvents(Map theMap) {
 		super();
-		this.observedMap=theMap;
+		this.observedMap = theMap;
 	}
+
 	@Override
-	public void update(){
-		//when a change occurs, the utility method printMap will display the map. 
-		//this.printMap();
+	public void update() {
+		// when a change occurs, the utility method printMap will display the
+		// map.
+		// this.printMap();
 	}
-	
-	public Map getMapObserver()
-	{
+
+	public Map getMapObserver() {
 		return observedMap;
 	}
-	
-	public void printMap(){
-		for(int i= 0;i< observedMap.width;i++){
-			for(int j=0;j<observedMap.height;j++){
-				System.out.print(observedMap.grid[i][j].posx +"\t");
+
+	public void printMap() {
+		for (int i = 0; i < observedMap.getWidth(); i++) {
+			for (int j = 0; j < observedMap.getHeight(); j++) {
+				System.out.print(observedMap.getGrid()[i][j].getPosx() + "\t");
 			}
 			System.out.println("");
 		}

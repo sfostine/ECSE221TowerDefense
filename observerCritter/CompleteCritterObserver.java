@@ -16,6 +16,8 @@ import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 
+import domain.Value;
+
 public class CompleteCritterObserver extends Critter{
 
 	private String path;
@@ -53,12 +55,7 @@ public class CompleteCritterObserver extends Critter{
 	 */
 	public void drawCritters(Graphics g) {
 		g.drawImage(crit, this.getX(), getY(), null);
-		// draw the level
-		//int x = super.coord.measure.getWidth() / 2 ;
-		//int y = 40;
-		//g.setColor(Color.MAGENTA);
-		//g.setFont(new Font("default", Font.BOLD, 40));
-		//g.drawString("HIT POINT: " + this.getHitPoint(), x, y);
+		
 		Toolkit.getDefaultToolkit().sync();
 
 	}
@@ -68,11 +65,11 @@ public class CompleteCritterObserver extends Critter{
 		g.setColor(Color.green);
 		
 		g.fillRect(0, 0, 
-				Measures.getMeasures().getWidth(), Measures.getMeasures().getHeight());
+				Value.getWindowWidth(), Value.getWindowHeight());
 		
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("default", Font.BOLD, 40));
-		g.drawString("HIT POINT IS : 0\nCRITTER IS DEAD", Measures.getMeasures().getWidth()/4, Measures.getMeasures().getHeight()/2);	
+		g.drawString("HIT POINT IS : 0\nCRITTER IS DEAD", Value.getWindowWidth()/4, Value.getWindowHeight()/2);	
 	}
 	
 }

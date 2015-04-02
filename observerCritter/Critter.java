@@ -12,7 +12,6 @@ import guiUtilityMethods.GUIMap;
 import java.util.ArrayList;
 
 import domain.Cell;
-import domain.PathCell;
 import domain.Value;
 
 public class Critter implements ICritterObserver {
@@ -26,11 +25,11 @@ public class Critter implements ICritterObserver {
 
 	// position of the critters
 	private ArrayList<Cell> path;
-	
-	//map 
+
+	// map
 	GUIMap map;
-	private int adjust = 10;
-	
+	private int adjust = 25;
+
 	// NB: attributes are dependent on the game level
 	public Critter(int gameLevel) {
 		map = GUIMap.getMap();
@@ -40,12 +39,13 @@ public class Critter implements ICritterObserver {
 		this.pre_hitPoint = hitPoint;
 		this.strength = gameLevel + 1;
 		this.speed = gameLevel * 3 + 1;
-		path = map.domainMap.findPath();
-		this.x = path.get(0).posx;
-		this.y = path.get(0).posy + adjust;
+		path = map.getDomainMap().findPath();
+
+		this.x = path.get(0).getPosy() * Value.pathCellSize - adjust;
+		this.y = path.get(0).getPosx() * Value.pathCellSize + adjust;
+
 		
-		
-		
+
 	}
 
 	/***
@@ -125,16 +125,18 @@ public class Critter implements ICritterObserver {
 	 * @param map
 	 */
 	private int i = 0;
+
 	public void move() {
-		//int adjust = 10;// adjust the display of the critters on the map
-		
-		this.setX(this.getX() + Value.pathCellSize);
-		this.setY(path.get(i).posx + adjust );
-		
-		System.out.println("(" + getX() + "," + getY() + ")");
+
+		if (i == Value.width) {
+			this.setX(this.getX() + Value.pathCellSize + adjust);
+			return;
+		}
+
+		this.setX(this.path.get(i).getPosy() * Value.pathCellSize + adjust);
+		this.setY(this.path.get(i++).getPosx() * Value.pathCellSize + adjust);
+
 	}
-	
-	
 
 	/********************** GETTERS AND SETTERS FOR THE COORDINATE OF A CRITTER ************************/
 	public int getY() {
@@ -152,5 +154,5 @@ public class Critter implements ICritterObserver {
 	public void setX(int x) {
 		this.x = x;
 	}
-	
+
 }

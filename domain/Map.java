@@ -8,9 +8,8 @@ import presentation.ConsoleMapEvents;
 import presentation.IObserver;
 
 public class Map {
-	public Cell[][] grid;
-	public int width;
-	public int height;
+	private Cell[][] grid;
+	private int width, height;
 	private PathCell entrypoint; // setter methods provided that account for
 									// when the user may accidently assign a
 									// scenery cell as the entry point
@@ -19,42 +18,42 @@ public class Map {
 
 	public Map(int width, int height) {
 		// intializing an empty grid with given length and width.
-		grid = new Cell[width][height];
+		setGrid(new Cell[width][height]);
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				grid[i][j] = new SceneryCell(i, j);
+				getGrid()[i][j] = new SceneryCell(i, j);
 			}
 		}
-		this.width = width;
-		this.height = height;
+		this.setWidth(width);
+		this.setHeight(height);
 		observers = new ArrayList<IObserver>();
 	}
 
 	// setting a cell to a path cell in the map.
 	public void setToPath(int posx, int posy) {
-		if (!(grid[posx][posy] instanceof PathCell)) {
-			grid[posx][posy] = new PathCell(posx, posy);
+		if (!(getGrid()[posx][posy] instanceof PathCell)) {
+			getGrid()[posx][posy] = new PathCell(posx, posy);
 		}
 		notifyObservers();
 	}
 
 	// setting a cell to a scenery cell in the path.
 	public void setToScenery(int posx, int posy) {
-		if (!(grid[posx][posy] instanceof SceneryCell)) {
-			grid[posx][posy] = new SceneryCell(posx, posy);
+		if (!(getGrid()[posx][posy] instanceof SceneryCell)) {
+			getGrid()[posx][posy] = new SceneryCell(posx, posy);
 		}
 		notifyObservers();
 	}
 
 	// getter method for a particular cell in the array.
 	public Cell getCell(int posx, int posy) {
-		return grid[posx][posy];
+		return getGrid()[posx][posy];
 	}
 
 	// setting the entry point on a map.
 	public boolean setEntryPoint(int posx, int posy) {
-		if (grid[posx][posy] instanceof PathCell) {
-			this.entrypoint = (PathCell) grid[posx][posy];
+		if (getGrid()[posx][posy] instanceof PathCell) {
+			this.entrypoint = (PathCell) getGrid()[posx][posy];
 			notifyObservers();
 			return true;
 		} else {
@@ -66,8 +65,8 @@ public class Map {
 
 	// setting the exit point on a map.
 	public boolean setExitPoint(int posx, int posy) {
-		if (grid[posx][posy] instanceof PathCell) {
-			this.exitpoint = (PathCell) grid[posx][posy];
+		if (getGrid()[posx][posy] instanceof PathCell) {
+			this.exitpoint = (PathCell) getGrid()[posx][posy];
 			notifyObservers();
 			return true;
 		} else {
@@ -77,9 +76,9 @@ public class Map {
 		}
 	}
 
-	public void setCellToTower(int i, int j) {
-		if (grid[i][j] instanceof SceneryCell) {
-			((SceneryCell) grid[i][j]).setTower(new Tower());
+	private void setCellToTower(int i, int j) {
+		if (getGrid()[i][j] instanceof SceneryCell) {
+			((SceneryCell) getGrid()[i][j]).setTower(new Tower());
 		} else {
 			System.out.println("Not a SceneryCell");
 		}
@@ -88,16 +87,16 @@ public class Map {
 
 	// creates a default path for ease of testing
 	public void setDefaultMap() {
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) {
-				grid[i][j] = new SceneryCell(i, j);
-				if (i == ((this.width / 2))) {
-					grid[i][j] = new PathCell(i, j);
+		for (int i = 0; i < getWidth(); i++) {
+			for (int j = 0; j < getHeight(); j++) {
+				getGrid()[i][j] = new SceneryCell(i, j);
+				if (i == ((this.getWidth() / 2))) {
+					getGrid()[i][j] = new PathCell(i, j);
 					if (j == 0) {
-						this.entrypoint = (PathCell) grid[i][j];
+						this.entrypoint = (PathCell) getGrid()[i][j];
 					}
-					if (j == height - 1) {
-						this.exitpoint = (PathCell) grid[i][j];
+					if (j == getHeight() - 1) {
+						this.exitpoint = (PathCell) getGrid()[i][j];
 					}
 				}
 			}
@@ -131,17 +130,21 @@ public class Map {
 	// helper method to get adjacent cells in a map.
 	private ArrayList<Cell> getAdjCells(Cell currentCell) {
 		ArrayList<Cell> adjList = new ArrayList<Cell>();
-		if (currentCell.posx - 1 >= 0) {
-			adjList.add(this.getCell(currentCell.posx - 1, currentCell.posy));
+		if (currentCell.getPosx() - 1 >= 0) {
+			adjList.add(this.getCell(currentCell.getPosx() - 1,
+					currentCell.getPosy()));
 		}
-		if (currentCell.posx + 1 <= width - 1) {
-			adjList.add(this.getCell(currentCell.posx + 1, currentCell.posy));
+		if (currentCell.getPosx() + 1 <= getWidth() - 1) {
+			adjList.add(this.getCell(currentCell.getPosx() + 1,
+					currentCell.getPosy()));
 		}
-		if (currentCell.posy - 1 >= 0) {
-			adjList.add(this.getCell(currentCell.posx, currentCell.posy - 1));
+		if (currentCell.getPosy() - 1 >= 0) {
+			adjList.add(this.getCell(currentCell.getPosx(),
+					currentCell.getPosy() - 1));
 		}
-		if (currentCell.posy + 1 <= height - 1) {
-			adjList.add(this.getCell(currentCell.posx, currentCell.posy + 1));
+		if (currentCell.getPosy() + 1 <= getHeight() - 1) {
+			adjList.add(this.getCell(currentCell.getPosx(),
+					currentCell.getPosy() + 1));
 		}
 		return adjList;
 	}
@@ -158,15 +161,17 @@ public class Map {
 			return false;
 		}
 		boolean onEdge = true;
-		if ((this.entrypoint.posx != 0) && (this.entrypoint.posx != width - 1)
-				&& (this.entrypoint.posy != 0)
-				&& (this.entrypoint.posy != height - 1)) {
+		if ((this.entrypoint.getPosx() != 0)
+				&& (this.entrypoint.getPosx() != getWidth() - 1)
+				&& (this.entrypoint.getPosy() != 0)
+				&& (this.entrypoint.getPosy() != getHeight() - 1)) {
 			onEdge = false;
 		}
 
-		if ((this.exitpoint.posx != 0) && (this.exitpoint.posx != width - 1)
-				&& (this.exitpoint.posy != 0)
-				&& (this.exitpoint.posy != height - 1)) {
+		if ((this.exitpoint.getPosx() != 0)
+				&& (this.exitpoint.getPosx() != getWidth() - 1)
+				&& (this.exitpoint.getPosy() != 0)
+				&& (this.exitpoint.getPosy() != getHeight() - 1)) {
 			onEdge = false;
 		}
 		return onEdge;
@@ -175,20 +180,20 @@ public class Map {
 	// helper method to set all cells in a grid to unvisited so that the
 	// findPath algorithm works appropriately.
 	private void setUnvisited() {
-		for (int i = 0; i < this.width; i++) {
-			for (int j = 0; j < this.height; j++) {
-				this.grid[i][j].checked = false;
+		for (int i = 0; i < this.getWidth(); i++) {
+			for (int j = 0; j < this.getHeight(); j++) {
+				this.getGrid()[i][j].setChecked(false);
 			}
 		}
 	}
 
 	// method that determines if there is a single, unique and appropriate path
 	// following the rules stated above the method "verify method"
-	public ArrayList findPath() {
+	public ArrayList<Cell> findPath() {
 		// setting all cells as unvisited
 		setUnvisited();
 		// creating an arraylist which will store the proposed path.
-		ArrayList proposedPath = new ArrayList();
+		ArrayList<Cell> proposedPath = new ArrayList<Cell>();
 		// starting at the entrypoint for the path.
 		Cell tempCell = this.entrypoint;
 		// continue looping until we reach the exitpoint
@@ -218,8 +223,8 @@ public class Map {
 			while (itrAdj.hasNext()) {
 				Cell tempCell2 = (Cell) itrAdj.next();
 				if ((tempCell2 instanceof PathCell)
-						&& tempCell2.checked == false) {
-					tempCell.checked = true;
+						&& tempCell2.isChecked() == false) {
+					tempCell.setChecked(true);
 					proposedPath.add(tempCell);
 					tempCell = tempCell2;
 				}
@@ -230,10 +235,10 @@ public class Map {
 		// checking if there are other path cells that have been placed 1 square
 		// or more away from the path. If so, they will not be in the proposed
 		// path and we will return a null arraylist.
-		for (int i = 0; i < this.width; i++) {
-			for (int j = 0; j < this.height; j++) {
-				if (this.grid[i][j] instanceof PathCell
-						&& !proposedPath.contains(this.grid[i][j])) {
+		for (int i = 0; i < this.getWidth(); i++) {
+			for (int j = 0; j < this.getHeight(); j++) {
+				if (this.getGrid()[i][j] instanceof PathCell
+						&& !proposedPath.contains(this.getGrid()[i][j])) {
 					return null;
 				}
 			}
@@ -255,5 +260,47 @@ public class Map {
 		for (IObserver o : observers) {
 			o.update();
 		}
+	}
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	/**
+	 * @return the grid
+	 */
+	public Cell[][] getGrid() {
+		return grid;
+	}
+
+	/**
+	 * @param grid the grid to set
+	 */
+	public void setGrid(Cell[][] grid) {
+		this.grid = grid;
 	}
 }
