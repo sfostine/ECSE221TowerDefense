@@ -5,7 +5,7 @@
  * and the functions that will be used to access or modify the attributes 
  * it implements the critter observer for the pattern
  * */
-package observerCritter;
+package CritterFactory;
 
 import guiUtilityMethods.GUIMap;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import domain.Cell;
 import domain.Value;
 
-public class Critter implements ICritterObserver {
+public class Critter {
 
 	// private attributes to each critter
 	private int reward, hitPoint, strength, level, speed;
@@ -27,7 +27,7 @@ public class Critter implements ICritterObserver {
 	private ArrayList<Cell> path;
 
 	// map
-	GUIMap map;
+	private GUIMap map;
 	private int adjust = 25;
 
 	// NB: attributes are dependent on the game level
@@ -41,44 +41,21 @@ public class Critter implements ICritterObserver {
 		this.speed = gameLevel * 3 + 1;
 		path = map.getDomainMap().findPath();
 
-		this.x = path.get(0).getPosy() * Value.pathCellSize - adjust;
-		this.y = path.get(0).getPosx() * Value.pathCellSize + adjust;
+		this.x = path.get(0).getPosy() * Value.getPathCellSize();
+		this.y = path.get(0).getPosx() * Value.getPathCellSize() + adjust;
 
-		
 
 	}
 
 	/***
 	 * the update method when notifying
 	 */
-	@Override
-	public void update() {
-
-		// when the previous hit point is greater than the new hit point, the
-		// critter is hit
-		// then we set previous hit point equal to the new hit point
-		// because we want to know if the critter is hit again
-		if ((pre_hitPoint > getHitPoint()) && !isDead()) {
-			System.out.println("I AM HIT");
-			System.out.println("My new hit points is " + this.getHitPoint());
-			System.out.println("My new strength is " + this.getStrength());
-			pre_hitPoint = getHitPoint();
-
-			// if the critter is dead, notify that it is dead
-		} else if (isDead()) {
-
-			System.out.println("********* I AM DEAD ***********");
-			System.out.println("You have just received " + getreward()
-					+ " coin(s) for killing me ");
-		}
-		System.out.println();
-	}
 
 	/***
 	 * reduce the hit points and strength of the critters.
 	 */
-	public void hit() {
-		this.hitPoint--;
+	public void hit(int val) {
+		this.hitPoint -= val ;
 		this.strength--;
 	}
 
@@ -126,15 +103,15 @@ public class Critter implements ICritterObserver {
 	 */
 	private int i = 0;
 
-	public void move() {
+	public void move(int dist) {
 
-		if (i == Value.width) {
-			this.setX(this.getX() + Value.pathCellSize + adjust);
+		if (i >= Value.getWidth()) {
+			this.setX(this.getX() + Value.getPathCellSize());
 			return;
 		}
 
-		this.setX(this.path.get(i).getPosy() * Value.pathCellSize + adjust);
-		this.setY(this.path.get(i++).getPosx() * Value.pathCellSize + adjust);
+		this.setX(this.path.get(i).getPosy() * Value.getPathCellSize() + adjust + dist);
+		this.setY(this.path.get(i++).getPosx() * Value.getPathCellSize() + adjust);
 
 	}
 
