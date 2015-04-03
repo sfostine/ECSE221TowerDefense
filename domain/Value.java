@@ -3,12 +3,12 @@ package domain;
 //class that keeps important constants that are useful in controlling program flow
 public class Value {
 
-	public static int grass = 0; // grass constant for setting the grass based
+	private static int grass = 0; // grass constant for setting the grass based
 									// on what Instance is in the model
-	public static int path = 1; //
-	public static int pathCellSize = 52;
-	public static int windowWidth, windowHeight;
-	public static int width, height;
+	private static int path = 1; //
+	private static int pathCellSize = 52;
+	private static int windowWidth, windowHeight;
+	private static int width, height;
 
 	/**
 	 * @return the windowWidth
@@ -30,7 +30,7 @@ public class Value {
 	 */
 	public static void setWindowWidth(int windowWi) {
 		windowWidth = windowWi;
-		width = windowWi / pathCellSize;
+		setWidth(windowWi / getPathCellSize());
 	}
 
 	/**
@@ -39,7 +39,77 @@ public class Value {
 	 */
 	public static void setWindowHeight(int windowHei) {
 		windowHeight = windowHei;
-		height = windowHei / pathCellSize;
+		setHeight(windowHei / getPathCellSize());
+	}
+
+	/**
+	 * @return the pathCellSize
+	 */
+	public static int getPathCellSize() {
+		return pathCellSize;
+	}
+
+	/**
+	 * @param pathCellSize the pathCellSize to set
+	 */
+	public static void setPathCellSize(int pathCellSize) {
+		Value.pathCellSize = pathCellSize;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public static int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public static void setWidth(int width) {
+		Value.width = width;
+	}
+
+	/**
+	 * @return the grass
+	 */
+	public static int getGrass() {
+		return grass;
+	}
+
+	/**
+	 * @param grass the grass to set
+	 */
+	public static void setGrass(int grass) {
+		Value.grass = grass;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public static int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public static void setHeight(int height) {
+		Value.height = height;
+	}
+
+	/**
+	 * @return the path
+	 */
+	public static int getPath() {
+		return path;
+	}
+
+	/**
+	 * @param path the path to set
+	 */
+	public static void setPath(int path) {
+		Value.path = path;
 	}
 
 }

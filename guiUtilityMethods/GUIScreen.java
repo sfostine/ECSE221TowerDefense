@@ -2,7 +2,7 @@ package guiUtilityMethods;
 
 import javax.swing.*;
 
-import observerCritter.CompleteCritterObserver;
+import CritterFactory.CritterFactory;
 import domain.Value;
 
 import java.awt.*;
@@ -14,14 +14,14 @@ public class GUIScreen extends JPanel implements Runnable {
 	private static GUIScreen screen;
 	public Graphics graphics;
 
+	protected CritterFactory factory;
 	private int level = 1;
-	protected CompleteCritterObserver cr1;
-
 	// implementing singleton pattern
 	private GUIScreen() {
 		setMyWidth(Value.getWindowWidth());
 		setMyHeight(Value.getWindowHeight());
-		cr1 = new CompleteCritterObserver(level, "src/repo/enemy1.png");
+		factory = new CritterFactory();
+		factory.CreateCritters(level);
 		thread = new Thread(this);
 		thread.start();
 
@@ -39,7 +39,18 @@ public class GUIScreen extends JPanel implements Runnable {
 	}
 
 	private void updatePosition() {
-		cr1.move();
+		for(int i = 0; i < factory.getNumCrittersWave1(); i++)
+			System.out.print(factory.getCrit1().get(i).getX() + ", ");
+		System.out.println();
+		int previous = 0;
+		for(int i = 0; i < factory.getNumCrittersWave1(); i++){
+			factory.getCrit1().get(i).move(previous);
+			previous -= Value.getPathCellSize();
+			
+		}
+		
+		
+		
 	}
 
 	// overiding paintComponent
@@ -49,7 +60,8 @@ public class GUIScreen extends JPanel implements Runnable {
 		define();
 		g.clearRect(0, 0, getMyWidth(), getMyHeight());
 		room.update(); // drawing the room.
-		cr1.drawCritters(g);
+		for(int i = 0; i < factory.getNumCrittersWave1(); i++)
+			factory.getCrit1().get(i).drawCritters(g);
 
 	}
 

@@ -13,7 +13,7 @@ import domain.Value;
 
 public class GUIMap implements IObserver {
 	private int worldWidth, worldHeight;
-	private int blockSize = Value.pathCellSize; // adjusting blocksize depending
+	private int blockSize = Value.getPathCellSize(); // adjusting blocksize depending
 												// on input
 	private GUICell block[][];
 	private Map domainMap;
@@ -34,9 +34,9 @@ public class GUIMap implements IObserver {
 	}
 
 	private void initGUIMap() {
-		worldWidth = Value.width;
-		worldHeight = Value.height;
-
+		worldWidth = Value.getWidth();
+		worldHeight = Value.getHeight();
+	
 		setDomainMap(new Map(worldHeight, worldWidth));
 		ConsoleMapEvents theGuiMap = new ConsoleMapEvents(getDomainMap());
 		getDomainMap().addObserver(theGuiMap);
@@ -50,9 +50,9 @@ public class GUIMap implements IObserver {
 				// setting path if it contains a tower or a cell
 				int pathSet;
 				if (getDomainMap().getCell(y, x) instanceof PathCell) {
-					pathSet = Value.path;
+					pathSet = Value.getPath();
 				} else {
-					pathSet = Value.grass;
+					pathSet = Value.getGrass();
 				}
 				block[y][x] = new GUICell(((GUIScreen.getMyWidth() / 2)
 						- ((worldWidth * blockSize / 2)) + x * blockSize),

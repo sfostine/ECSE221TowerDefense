@@ -31,7 +31,7 @@ public class GUICell extends Rectangle {
 	public void drawCell(Graphics g) {
 		g.drawRect(x, y, width, height);
 
-		if (this.groundID == Value.grass) {
+		if (this.groundID == Value.getGrass()) {
 			g.drawImage(grassTile, x, y, null);
 		} else {
 			g.drawImage(groundTile, x, y, width, height, null);
