@@ -1,0 +1,40 @@
+package Domain;
+
+import java.awt.*;
+
+import javax.swing.ImageIcon;
+
+
+public class GUICell extends Rectangle {
+	private int groundID;
+	private Image grassTile, groundTile;
+
+	public GUICell(int x, int y, int width, int height, int idG) {
+		setBounds(x, y, width, height);
+		this.groundID = idG;
+		loadImages();
+	}
+
+	// load the images
+	private void loadImages() {
+		grassTile = new ImageIcon("src/repo/grasstile.png").getImage();
+		groundTile = new ImageIcon("src/repo/groundTile.png").getImage();
+
+	}
+
+	/***
+	 * draw the cells
+	 * 
+	 * @param g
+	 */
+	public void drawCell(Graphics g) {
+		g.drawRect(x, y, width, height);
+
+		if (this.groundID == Value.getGrass()) {
+			g.drawImage(grassTile, x, y, null);
+		} else {
+			g.drawImage(groundTile, x, y, width, height, null);
+		}
+		Toolkit.getDefaultToolkit().sync();
+	}
+}
