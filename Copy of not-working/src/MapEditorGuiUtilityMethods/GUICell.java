@@ -18,10 +18,10 @@ public class GUICell extends Rectangle {
 
 	// load the images
 	private void loadImages() {
-		grassTile = new ImageIcon("src/repo/grasstile.png").getImage();
-		groundTile = new ImageIcon("src/repo/groundTile.png").getImage();
-		entryTile= new ImageIcon("src/repo/entry.png").getImage();
-		exitTile= new ImageIcon("src/repo/exit.png").getImage();
+		grassTile = new ImageIcon("src/MapEditorRepo/grasstile.png").getImage();
+		groundTile = new ImageIcon("src/MapEditorRepo/groundTile.png").getImage();
+		entryTile= new ImageIcon("src/MapEditorRepo/entry.png").getImage();
+		exitTile= new ImageIcon("src/MapEditorRepo/exit.png").getImage();
 	}
 	
 	public void drawCell(Graphics g) {

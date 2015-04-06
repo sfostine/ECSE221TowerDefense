@@ -11,6 +11,7 @@ public abstract class Tower {
  private int level;
  private LinkedList<IObserver> observers;
  private StrategyIObserver towerStrategy;
+ protected String description;
  
  //Constructor 
  public Tower(int level){
@@ -23,6 +24,7 @@ public abstract class Tower {
 	 this.observers = a.getObservers();
 	 this.level = a.getLevel();
 	 this.towerStrategy = a.getStrategy();
+	 this.description = a.getDescription();
  }
  
  public Tower(){
@@ -43,9 +45,7 @@ public abstract class Tower {
  public abstract Tower upgrade();
  
  public abstract int cost();
- 
- public abstract String getDescription();
- 
+  
 // public abstract void attack(Critter c);
  
  public void sell(){ System.out.println("tower sold"); }
@@ -81,6 +81,12 @@ public abstract class Tower {
  public StrategyIObserver getStrategy(){ return towerStrategy; } 
 
  public void setLevel(int level) { this.level = level; }
-
  
+ public String getDescription(){ 
+	 return description;
+ }
+
+ public String toString(){ return "the selected tower is a " + this.getDescription() 
+		 + "\n Level: " + this.getLevel() + "      Power: " + this.getPower() 
+		 + "\n Range: " + this.getRange() + "      Rate of fire: " + this.getRateOfFire();}
 }

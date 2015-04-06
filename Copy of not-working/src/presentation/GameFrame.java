@@ -14,8 +14,8 @@ import java.awt.*;
 public class GameFrame{
  
  //Declare variables
- static int windowWidth = 1000;
- static int windowHeight = 618;
+// static int windowWidth = 1000;
+// static int windowHeight = 618;
  final static JFrame frame = new JFrame("Welcome");
 // static MapPanel mapPanel;
  static GUIScreen mapPanel;
@@ -27,7 +27,7 @@ public class GameFrame{
 		//Value.setWindowWidth(getUserInput.getInput("Please enter the width you want"));
 
   //Build a JFrame which contains JPanels and JButtons to compose the main GUI
-  frame.setSize(windowWidth+150, windowHeight);
+  frame.setSize(Value.getWindowWidth()+160, Value.getWindowHeight()+20);
 		//frame.setSize(Value.getWindowWidth()+160, Value.getWindowHeight()+22);
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	

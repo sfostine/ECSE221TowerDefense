@@ -60,7 +60,6 @@ public class Menu {
 				mainMenu.setVisible(false);
 				System.out.println("new game called");
 				ArrayList<String> fileNames = getFileNamesInFolder("savedMaps");
-				fileNames.add(0, "New Map");
 				String[] list = new String[fileNames.size()];
 				list = fileNames.toArray(list);
 				int chosenFile = JOptionPane.showOptionDialog(null,
@@ -73,7 +72,6 @@ public class Menu {
 						* Value.pathCellSize);
 				Value.setWindowHeight(tempDomainMap.getWidth()
 						* Value.pathCellSize);
-				//tempPath = tempDomainMap.findPath();
 				new GameFrame();
 			}
 		};

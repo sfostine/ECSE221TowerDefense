@@ -4,16 +4,13 @@ public class FireBall extends TowerDecorator{
 
 	protected FireBall(Tower tower) {
 		super(tower);
+		tower.description = "Fireball " + tower.getDescription();
 	}
 
 	public int cost(){
 		return 100 + UnDecoratedTower.cost();
 	}
 
-	 
-	 public String getDescription(){ 
-		 return "Fireball + " + UnDecoratedTower.getDescription();
-	 }
 	
 	@Override
 	 public Tower upgrade(){

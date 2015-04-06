@@ -9,6 +9,7 @@ public class Rocket extends Tower {
   this.setPower(30);
   this.setRange(3);
   this.setRateOfFire(0.8);
+  this.description = "Rocket";
  }
  
  //Implement upgrade method
@@ -25,9 +26,7 @@ public class Rocket extends Tower {
  }
 
  
- public String getDescription(){ 
-	 return "Rocket";
- }
+
  
 @Override
 public int cost() {

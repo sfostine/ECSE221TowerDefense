@@ -12,7 +12,7 @@ import MapEditorGuiUtilityMethods.GUIFrame;
 import MapEditorGuiUtilityMethods.getUserInput;
 
 public class InitializeMapEditor {
-	private static ImageIcon logo = new ImageIcon("src/repo/logo.jpg");
+	private static ImageIcon logo = new ImageIcon("src/MapEditorRepo/logo.jpg");
 	public InitializeMapEditor(){
 		String[] options={"Load Map", "New Map"};
 		int newGameOrLoad=JOptionPane.showOptionDialog(null,"Would you like to start a new map or edit an old one?","Map Editor",JOptionPane.INFORMATION_MESSAGE,0,logo,options,0);

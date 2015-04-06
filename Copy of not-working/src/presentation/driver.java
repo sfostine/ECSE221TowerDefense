@@ -7,7 +7,6 @@ public class driver {
 
  public static void main(String[] args) {
   //Create a new GUI object called mainWindow
-//	 new GameFrame();
 	 new Menu();
 	 
  }

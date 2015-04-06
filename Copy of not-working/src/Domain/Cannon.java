@@ -7,8 +7,9 @@ public class Cannon extends Tower {
 		 //Declare a Cannon object by using Tower constructor
 		  super(level);
 		  this.setPower(20);
-		  this.setRange(5);
+		  this.setRange(2);
 		  this.setRateOfFire(0.5);
+		  this.description = "Cannon";
 	 }
 	 
 	 //Implement upgrade method
@@ -26,7 +27,7 @@ public class Cannon extends Tower {
 	 
 	 
 	 public String getDescription(){ 
-		 return "Cannon";
+		 return description;
 	 }
 	 
 	 @Override

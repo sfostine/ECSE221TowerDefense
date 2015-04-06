@@ -7,8 +7,9 @@ public class Bow extends Tower {
   //Declare a Bow object by using Tower constructor
   super(level);
   this.setPower(25);
-  this.setRange(2);
+  this.setRange(1);
   this.setRateOfFire(0.8);
+  this.description = "Bow";
  }
  
  //Implement upgrade method
@@ -24,10 +25,6 @@ public class Bow extends Tower {
 	 }
  }
 
- 
- public String getDescription(){ 
-	 return "Bow";
- }
  
 @Override
 public int cost() {
